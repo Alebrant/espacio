@@ -1,18 +1,30 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <Sistema :planetas="planetas"/>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import Sistema from "@/components/Sistema"
+import axios from "axios"
 
 export default {
   name: 'Home',
   components: {
-    HelloWorld
+    Sistema
+  },
+  data() {
+    return {
+      planetas: []
+    }
+  },
+  created(){
+    const self = this;
+    axios.get("/sistema/Alebrant/")
+    .then(res => { return res.data || []})
+    .then(res => { return res.map(planeta => {
+      planeta.name = planeta._id;
+      return planeta;
+    })})
+    .then(res => {return self.planetas = res})
   }
 }
 </script>
