@@ -20,4 +20,8 @@ html, body, #app {
   color: #2c3e50;
   margin-top: 60px;
 }
+.v-main{
+  background: rgb(98, 136, 218);
+  color: white;
+}
 </style>
