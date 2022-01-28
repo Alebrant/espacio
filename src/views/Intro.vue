@@ -62,7 +62,7 @@ export default {
     return {
       amount: 60,
       speed: 10,
-      size: 600,
+      size: 1000,
       pov: 60,
       dots: [],
       position: -600,
