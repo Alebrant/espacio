@@ -76,7 +76,7 @@ export default {
         }
         const relativeAge = Math.min(1, dot.age / 30);
         let color = "white";
-        // switch (dot.color){
+        // switch (dot.color){ 
         //   case 1:
         //     color = "#b33c01";
         //     break;
