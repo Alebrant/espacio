@@ -43,6 +43,7 @@
   white-space: nowrap;
 }
 .controles {
+  display: none;
   position: fixed;
   bottom: 0;
   left: 0;
