@@ -22,19 +22,19 @@
 <style scoped>
 @font-face {
   font-family: "Atiba";
-  src: url("https://espacio-alebrant.vercel.app/#/fonts/atiba/Atiba.ttf");
+  src: url("https://espacio-alebrant.vercel.app/fonts/atiba/Atiba.ttf");
 }
 @font-face {
   font-family: "Control Freak";
-  src: url("https://espacio-alebrant.vercel.app/#/fonts/control-freak/CONTF___.ttf");
+  src: url("https://espacio-alebrant.vercel.app/fonts/control-freak/CONTF___.ttf");
 }
 @font-face {
   font-family: "Mysteron";
-  src: url("https://espacio-alebrant.vercel.app/#/fonts/mysterons/mysteron.ttf");
+  src: url("https://espacio-alebrant.vercel.app/fonts/mysterons/mysteron.ttf");
 }
 @font-face {
   font-family: "Vanadine Regular";
-  src: url("https://espacio-alebrant.vercel.app/#/fonts/vanadine/Vanadine Regular.ttf");
+  src: url("https://espacio-alebrant.vercel.app/fonts/vanadine/Vanadine Regular.ttf");
 }
 @-webkit-keyframes glow {
     from {opacity: 1;}
