@@ -30,7 +30,7 @@
 }
 @font-face {
   font-family: "Mysteron";
-  src: url("https://espacio-9cfidvn23-alebrant-vercel.app/#/fonts/mysterons/mysteron.ttf");
+  src: url("https://espacio-9cfidvn23-alebrant-vercel.app/#/fonts/mysterons/mysteron.ttf"); 
 }
 @font-face {
   font-family: "Vanadine Regular";
