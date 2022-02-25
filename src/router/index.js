@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Home from '@/views/Home.vue'
 import Tienda from '@/views/Tienda.vue'
 import Intro from '@/views/Intro.vue'
+import Marco from '@/views/Marco.vue'
 
 Vue.use(VueRouter)
 
@@ -18,9 +19,20 @@ const routes = [
     component: Tienda
   },
   {
-    path: '/intro',
+    path: '/intro/',
     name: 'Intro',
     component: Intro
+  },
+  {
+    path: '/intro/:message/:fontfamily/:fontsize/',
+    name: 'Intro',
+    props: true,
+    component: Intro
+  },
+  {
+    path: '/marco',
+    name: 'Marco',
+    component: Marco
   }
 ]
 
