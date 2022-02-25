@@ -15,9 +15,32 @@
       <input v-model="size" type="number" /><br />
       <input v-model="position" type="number" step="10" /><br />
     </div>
+    <div v-if="message" :style="messageStyle"
+      class="message">{{message}}</div>
   </v-main>
 </template>
 <style scoped>
+@font-face {
+  font-family: "Atiba";
+  src: url("http://localhost:8080/fonts/atiba/Atiba.ttf");
+}
+@font-face {
+  font-family: "Control Freak";
+  src: url("http://localhost:8080/fonts/control-freak/CONTF___.ttf");
+}
+@font-face {
+  font-family: "Mysteron";
+  src: url("http://localhost:8080/fonts/mysterons/mysteron.ttf");
+}
+@font-face {
+  font-family: "Vanadine Regular";
+  src: url("http://localhost:8080/fonts/vanadine/Vanadine Regular.ttf");
+}
+@-webkit-keyframes glow {
+    from {opacity: 1;}
+    50% {opacity: 0.4;}
+    to {opacity: 1;}
+}
 .main {
   width: 100%;
   height: 100%;
@@ -53,6 +76,15 @@
 .controles input {
   color: white;
 }
+.message {
+  position: fixed;
+  top: 50%;
+  width: 100%;
+  text-align: center;
+  color: white;
+  animation: 5s glow ease-in-out infinite;
+  text-shadow: 0 0 4px white;
+}
 </style>
 <script>
 export default {
@@ -66,7 +98,21 @@ export default {
       pov: 60,
       dots: [],
       position: -600,
+      audio: "audio/cosmic-glow-6703.mp3"
     };
+  },
+  props:{
+    fontsize:{
+      type: Number,
+      default: 50
+    },
+    fontfamily:{
+      type: Number,
+      default: 1
+    },
+    message:{
+      type: String
+    }
   },
   computed: {
     dotStyle: function () {
@@ -120,6 +166,30 @@ export default {
         return dotPolares;
       });
     },
+    messageStyle: function() {
+      const self = this;
+      let family,
+        style = `font-size: ${self.fontsize}px; margin-top: ${-self.fontsize/2}px;`;
+      switch(self.fontfamily){
+        case "1":
+          family = "Atiba";
+          break;
+        case "2":
+          family = "Control Freak";
+          break;
+        case "3":
+          family = "Mysteron";
+          break;
+        case "4":
+          family = "Vanadine Regular";
+          break;
+      }
+      console.log(family);
+      if (family){
+        style += `font-family: "${family}";`;
+      }
+      return style;
+    }
   },
   methods: {
     newDot(x, y, z, size, color) {
@@ -200,7 +270,10 @@ export default {
           break;
       }
     });
-
+    setTimeout(()=>{
+      let audio = new Audio(require('@/assets/'+self.audio));
+      audio.play();
+    },1000);
   },
 };
 </script>
