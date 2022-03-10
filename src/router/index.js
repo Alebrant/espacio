@@ -4,6 +4,7 @@ import Home from '@/views/Home.vue'
 import Tienda from '@/views/Tienda.vue'
 import Intro from '@/views/Intro.vue'
 import Marco from '@/views/Marco.vue'
+import Confeti from '@/views/Confeti.vue'
 
 Vue.use(VueRouter)
 
@@ -33,6 +34,11 @@ const routes = [
     path: '/marco',
     name: 'Marco',
     component: Marco
+  },
+  {
+    path: '/confeti',
+    name: 'Confeti',
+    component: Confeti
   }
 ]
 
