@@ -5,6 +5,8 @@ import Tienda from '@/views/Tienda.vue'
 import Intro from '@/views/Intro.vue'
 import Marco from '@/views/Marco.vue'
 import Confeti from '@/views/Confeti.vue'
+import HitCounter from '@/views/HitCounter.vue'
+import Knotches from '@/views/Knotches.vue'
 
 Vue.use(VueRouter)
 
@@ -39,6 +41,16 @@ const routes = [
     path: '/confeti',
     name: 'Confeti',
     component: Confeti
+  },
+  {
+    path: '/hitCounter/:id?',
+    name: 'HitCounter',
+    component: HitCounter
+  },
+  {
+    path: '/knotches',
+    name: 'Knotches',
+    component: Knotches
   }
 ]
 
