@@ -1,10 +1,10 @@
 <template>
   <div class="splitter">
     <div class="header splitter-row">
-      <span class="name">Split</span>
+      <span class="name">Split <span v-if="splitCountVisible">({{currentSplit + 1}}/{{splits.length}})</span></span>
       <span class="current">Now</span>
-      <span class="diff">Diff</span>
-      <span class="pb">PB</span>
+      <span v-if="diffVisible" class="diff">Diff</span>
+      <span v-if="pbVisible" class="pb">PB</span>
     </div>
     <div class="splits">
       <div
@@ -16,15 +16,15 @@
       >
         <span class="name">{{split.name}}</span>
         <span class="current">{{split.currentComplete}}</span>
-        <span class="diff">{{split.currentComplete | plusSign}}</span>
-        <span class="pb">{{split.pbComplete}}</span>
+        <span v-if="diffVisible" class="diff">{{split.diff | plusSign}}</span>
+        <span v-if="pbVisible" class="pb">{{split.pbComplete}}</span>
       </div>
     </div>
     <div class="totals splitter-row">
       <span class="name">TOTAL</span>
       <span class="current">{{currentTotal}}</span>
-      <span class="diff">{{diffTotal | plusSign}}</span>
-      <span class="pb">{{pbTotal}}</span>
+      <span v-if="diffVisible" class="diff">{{diffTotal | plusSign}}</span>
+      <span v-if="pbVisible" class="pb">{{pbTotal}}</span>
     </div>
   </div>
 </template>
@@ -60,7 +60,7 @@
 .splitter .splitter-row > span.current,
 .splitter .splitter-row > span.diff,
 .splitter .splitter-row > span.pb {
-  width: 50px;
+  width: 60px;
   text-align: center;
 }
 .header, .totals {
@@ -76,28 +76,43 @@ export default {
   components: {},
   data() {
     return {
+      splitCountVisible: true,
+      hitSumVisible: true,
+      currentModeIndex: 0,
+      currentSplit: 0,
+      modes: ["Complete", "NoDiff", "NoPB"]
     };
   },
   props:{
-    currentSplit: {
-      type: Number,
-      default: 0
-    },
     splits:{
-      type: Object,
+      type: Array,
       default() {
         return []
       }
     }
   },
-
   computed: {
     splitsProcessed: function () {
       const self = this;
+      if(!self.splits) return [];
       return self.splits.map((split, i) => {
-        let processedSplit = Object.assign({}, split);
-        processedSplit.currentComplete = i>self.currentSplit ? "-" : processedSplit.current != undefined ? processedSplit.current : "0";
-        processedSplit.pbComplete = processedSplit.pb;
+        let processedSplit = Object.assign({}, split),
+          previousSplits = self.splits.filter((split, j) => j < i),
+          previousSum = previousSplits.reduce((i, split) => i + split.current, 0),
+          previousPBSum = previousSplits.reduce((i, split) => i + split.pb, 0);
+        previousSplits.currentSum = previousSum + split.current;
+        previousSplits.PBSum = previousPBSum + split.pb;
+        processedSplit.currentComplete = i>self.currentSplit 
+          ? "-" 
+          : (processedSplit.current != undefined 
+            ? processedSplit.current 
+            : "0") + (self.sumVisible 
+              ? ` (${previousSplits.currentSum})` 
+              : '');
+        processedSplit.diff = i>self.currentSplit ? "-" : processedSplit.current - processedSplit.pb;
+        processedSplit.pbComplete = processedSplit.pb  + (self.sumVisible 
+              ? ` (${previousSplits.PBSum})` 
+              : '');
         return processedSplit;
       });
     },
@@ -129,7 +144,19 @@ export default {
     },
     pbTotal: function() {
       const self = this;
-      return self.splitsActivos.reduce((i, split) => i + split.pb, 0);
+      return self.splitsProcessed.reduce((i, split) => i + split.pb, 0);
+    },
+    diffVisible: function() {
+      const self = this;
+      return self.currentModeIndex < 1;
+    },
+    sumVisible: function() {
+      const self = this;
+      return self.hitSumVisible;
+    },
+    pbVisible: function() {
+      const self = this;
+      return self.currentModeIndex < 2;
     },
   },
   methods: {
@@ -160,64 +187,24 @@ export default {
       }
       self.splits[self.currentSplit].pb = Math.max(self.splits[self.currentSplit].pb + hits, 0);
     },
-    randomDot(maxX, maxY, minZ, maxZ) {
-      const self = this,
-        x = self._randomInt(-maxX, maxX),
-        y = self._randomInt(-maxY, maxY),
-        z = self._randomInt(minZ, maxZ),
-        size = self._randomInt(0, 1),
-        color = Math.floor(self._randomInt(7, 7));
-      return self.newDot(x, y, z, size, color);
+    _swapMode(direction) {
+      const self = this;
+      let possibleModes = self.modes.length,
+        newModeIndex = self.currentModeIndex + direction;
+      while(newModeIndex < 0){
+        newModeIndex += possibleModes;
+      }
+      self.currentModeIndex = (newModeIndex) % possibleModes;
     },
     _randomInt(min, max) {
       return Math.random() * (max - min) + min;
     },
-    _visible(dot) {
+    _updatedRun(){
       const self = this;
-      return dot.z > self.position && dot.povDeg <= self.pov;
+      self.$emit("update", self.splits);
     },
-    _newTick(backwards) {
+    _bindControls(e) {
       const self = this;
-      backwards = !!backwards;
-      const directionMultiplier = backwards ? -1 : 1;
-      self.move(self.speed * directionMultiplier);
-      self._clearNotVisible();
-      self.dots.forEach(dot => {dot.age++});
-      setTimeout(function(){self._newTick()}, 30);
-    },
-    _startTicks() {
-      const self = this;
-      self._newTick();
-    },
-    _clearNotVisible() {
-      const self = this,
-        backgroundPosition = self.position + self.size,
-        dotsToRemove = [];
-      self.dotPerspectiva.forEach((dot, i) => {
-        if (!self._visible(dot)){
-          dotsToRemove.unshift(i);
-        }
-      });
-      dotsToRemove.forEach((i) => {
-        self.dots.splice(i, 1);
-        self.dots.push(self.randomDot(self.size/2, self.size/2, backgroundPosition, backgroundPosition));
-      });
-    }
-  },
-  created() {
-    // const self = this;
-    // for (let i = 0; i < self.amount; i++) {
-    //   self.dots.push(self.randomDot(self.size, self.size, 0, self.size));
-    // }
-  },
-  filters:{
-    plusSign: function (value) {
-      return (value > 0) ? `+${value}` : value;
-    }
-  },
-  mounted() {
-    const self = this;
-    window.addEventListener('keydown', function(e) {
       switch(e.key){
         case "ArrowUp":
           self._changeSplit(-1);
@@ -231,12 +218,32 @@ export default {
         case "ArrowRight":
           (!e.shiftKey) ? self._changeHits(1) : self._changeHitsPB(1);
           break;
+        case "n":
+        case "N":
+          self.hitSumVisible = !self.hitSumVisible;
+          break;
+        case "m":
+          self._swapMode(1);
+          break;
+        case "M":
+          self._swapMode(-1);
+          break;
+        default:
+          console.log(e.key, e.keyCode);
       }
-    });
-    // setTimeout(()=>{
-    //   let audio = new Audio(require('@/assets/'+self.audio));
-    //   audio.play();
-    // },1000);
+    },
+  },
+  created() {
+  },
+  filters:{
+    plusSign: function (value) {
+      return (value > 0) ? `+${value}` : value; 
+    }
+  },
+  mounted() {
+    const self = this;
+    window.removeEventListener('keydown', self._bindControls);
+    window.addEventListener('keydown', self._bindControls);
   },
 };
 </script>
