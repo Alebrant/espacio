@@ -2,7 +2,10 @@
   <v-main class="main">
     <splitter :splits.sync="currentRun" @update="updateRun($event)"/>
     <div v-if="controls" class="controls">
-      <input type="number" v-model="selectedRun" :min="0" :max="runs.length - 1" @keydown="$event.stopPropagation()"/>
+      <select v-model="selectedCategory">
+        <option v-for="(cat, i) in categories" :key="'cat-'+i" :value="i">{{cat.name}}</option>
+      </select>
+      <input type="number" v-model="selectedRun" :min="0" :max="Math.max(runs.length - 1,0)" @keydown="$event.stopPropagation()"/>
     </div>
   </v-main>
 </template>
@@ -30,8 +33,9 @@ export default {
   components: {Splitter},
   data() {
     return {
+      data: {},
+      selectedCategory: 0,
       selectedRun: 0,
-      runs: [],
       controls: false
     };
   },
@@ -39,6 +43,19 @@ export default {
     currentRun: function() {
       const self = this;
       return (self.runs.length > self.selectedRun) ? self.runs[self.selectedRun] : [];
+    },
+    categories: function() {
+      const self = this;
+      return (self.data.categories) ? self.data.categories : [];
+    },
+    currentCategory: function() {
+      const self = this;
+      let firstCategory = self.categories.length ? self.categories[0] : {};
+      return (self.categories.length && self.categories.length > self.selectedCategory)? self.categories[self.selectedCategory] : firstCategory;
+    },
+    runs: function() {
+      const self = this;
+      return self.currentCategory.runs ? self.currentCategory.runs : [];
     }
   },
   methods: {
@@ -58,11 +75,12 @@ export default {
     },
     _syncStorage: function() {
       const self = this;
-      localStorage.setItem("runs", JSON.stringify(self.runs));
+      localStorage.setItem("HitCounterData", JSON.stringify(self.data));
     },
     _loadStorage: function() {
       const self = this;
-      self.runs = JSON.parse(localStorage.getItem("runs"));
+      self.data = JSON.parse(localStorage.getItem("HitCounterData"));
+      console.log(self.data);
     },
     _bindControls(e) {
       const self = this;
@@ -75,6 +93,9 @@ export default {
           break;
         case 80:  // P
           if(e.shiftKey && e.altKey) {self._savePB();}
+          break;
+        case 84:  // T
+          debugger;
           break;
         default:
           console.log(e);
