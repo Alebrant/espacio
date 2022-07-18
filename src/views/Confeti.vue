@@ -8,6 +8,9 @@
   </v-main>
 </template>
 <style scoped>
+html {
+  overflow: hidden;
+}
 .main {
   width: 100%;
   height: 100%;
