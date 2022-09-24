@@ -5,11 +5,34 @@
     <div class="controles">
       <input v-model="t" type="number" /><br />
     </div>
+    <div v-if="message" :style="messageStyle"
+      class="message">{{message}}</div>
   </v-main>
 </template>
 <style scoped>
+@font-face {
+  font-family: "Atiba";
+  src: url("https://espacio-alebrant.vercel.app/fonts/atiba/Atiba.ttf");
+}
+@font-face {
+  font-family: "Control Freak";
+  src: url("https://espacio-alebrant.vercel.app/fonts/control-freak/CONTF___.ttf");
+}
+@font-face {
+  font-family: "Mysteron";
+  src: url("https://espacio-alebrant.vercel.app/fonts/mysterons/mysteron.ttf");
+}
+@font-face {
+  font-family: "Vanadine Regular";
+  src: url("https://espacio-alebrant.vercel.app/fonts/vanadine/Vanadine Regular.ttf");
+}
+@-webkit-keyframes roller {
+    from {left: 100%;}
+    to {left: -100%;}
+}
+
 html {
-  overflow: hidden;
+  overflow-y: hidden !important;
 }
 .main {
   width: 100%;
@@ -28,6 +51,14 @@ html {
 .controles input {
   color: white;
 }
+.message {
+  position: fixed;
+  bottom: 0;
+  font-family: "Control Freak";
+  font-size: 30px;
+  animation: 30s roller linear infinite;
+  width: 2000px;
+}
 </style>
 <script>
 export default {
@@ -35,6 +66,7 @@ export default {
   components: {},
   data() {
     return {
+      fontfamily: 1,
       t: 0,
       angTest: 0,
       speedModifier: 0.05,
@@ -44,6 +76,11 @@ export default {
       amount: window.innerWidth * window.innerHeight / 30000,
       confetis: [],
     };
+  },
+  props:{
+    message:{
+      type: String
+    }
   },
   computed: {
     styleConfeti: function() {
@@ -79,6 +116,30 @@ export default {
           ` translate(${x}px, ${(t * confeti.b) % (self.height)}px)` +
           ` rotateX(${(confeti.rotX * t) % 360}deg) rotateY(${(confeti.rotY * t) % 360}deg) rotateZ(${(confeti.rotZ * t) /360}deg);`;
       });
+    },
+    messageStyle: function() {
+      const self = this;
+      let family,
+        style = `font-size: ${self.fontsize}px; margin-top: ${-self.fontsize/2}px;`;
+      switch(self.fontfamily){
+        case "1":
+          family = "Atiba";
+          break;
+        case "2":
+          family = "Control Freak";
+          break;
+        case "3":
+          family = "Mysteron";
+          break;
+        case "4":
+          family = "Vanadine Regular";
+          break;
+      }
+      console.log(family);
+      if (family){
+        style += `font-family: "${family}";`;
+      }
+      return style;
     }
   },
   methods: {
@@ -118,7 +179,7 @@ export default {
     _newTick() {
       const self = this;
       self.t++;
-      setTimeout(function(){self._newTick()}, 30);
+      setTimeout(function(){self._newTick()}, 40);
     },
     _startTicks() {
       const self = this;

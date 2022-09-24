@@ -54,13 +54,13 @@
   display: inline-block;
 }
 .splitter .splitter-row > span.name {
-  width: 300px;
+  width: 200px;
   text-align: left;
 }
 .splitter .splitter-row > span.current,
 .splitter .splitter-row > span.diff,
 .splitter .splitter-row > span.pb {
-  width: 60px;
+  width: 80px;
   text-align: center;
 }
 .header, .totals {
