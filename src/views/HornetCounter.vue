@@ -102,7 +102,7 @@ export default {
   },
   mounted() {
     const self = this;
-    document.title="HitCounter";
+    document.title="HornetCounter";
     window.removeEventListener('keydown', self._bindControls);
     window.addEventListener('keydown', self._bindControls);
   },
