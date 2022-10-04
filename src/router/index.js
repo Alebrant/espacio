@@ -6,6 +6,7 @@ import Intro from '@/views/Intro.vue'
 import Marco from '@/views/Marco.vue'
 import Confeti from '@/views/Confeti.vue'
 import HitCounter from '@/views/HitCounter.vue'
+import HornetCounter from '@/views/HornetCounter.vue'
 import Knotches from '@/views/Knotches.vue'
 import ZotePto from '@/views/ZotePto.vue'
 
@@ -48,6 +49,11 @@ const routes = [
     path: '/hitCounter/:id?',
     name: 'HitCounter',
     component: HitCounter
+  },
+  {
+    path: '/hornetCounter/',
+    name: 'HornetCounter',
+    component: HornetCounter
   },
   {
     path: '/knotches',
