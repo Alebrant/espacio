@@ -54,7 +54,7 @@
   display: inline-block;
 }
 .splitter .splitter-row > span.name {
-  width: 250px;
+  width: 275px;
   text-align: left;
 }
 .splitter .splitter-row > span.current,
