@@ -9,6 +9,7 @@ import HitCounter from '@/views/HitCounter.vue'
 import HornetCounter from '@/views/HornetCounter.vue'
 import Knotches from '@/views/Knotches.vue'
 import ZotePto from '@/views/ZotePto.vue'
+import ONICounter from '@/views/ONICounter.vue'
 
 Vue.use(VueRouter)
 
@@ -65,6 +66,11 @@ const routes = [
     name: 'ZotePto',
     props: true,
     component: ZotePto
+  },
+  {
+    path: '/oniCounter/',
+    name: 'ONICounter',
+    component: ONICounter
   }
 ]
 
