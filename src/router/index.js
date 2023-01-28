@@ -10,6 +10,8 @@ import HornetCounter from '@/views/HornetCounter.vue'
 import Knotches from '@/views/Knotches.vue'
 import ZotePto from '@/views/ZotePto.vue'
 import ONICounter from '@/views/ONICounter.vue'
+import Honorifica from '@/views/Honorifica.vue'
+import HonorificaZuha from '@/views/HonorificaZuha.vue'
 
 Vue.use(VueRouter)
 
@@ -71,6 +73,18 @@ const routes = [
     path: '/oniCounter/',
     name: 'ONICounter',
     component: ONICounter
+  },
+  {
+    path: '/honorifica/:player',
+    name: 'Honorifica',
+    props: true,
+    component: Honorifica
+  },
+  {
+    path: '/honorificazuha',
+    name: 'Honorifica',
+    props: true,
+    component: HonorificaZuha
   }
 ]
 
