@@ -111,6 +111,41 @@ export default {
           name: 'zuhaLoAm',
           time: 15
         },
+        vlados: {
+          logo: 'https://static-cdn.jtvnw.net/jtv_user_pictures/d25f39b9-b8c2-4d61-ba61-9b6281a4c4c2-profile_image-150x150.png',
+          name: 'VlaDOS_095',
+          time: 180
+        },
+        papajoshhh: {
+          logo: 'https://static-cdn.jtvnw.net/jtv_user_pictures/77610237-2669-4f6f-921a-069bfe5eece5-profile_image-150x150.png',
+          name: 'Papajoshhh',
+          time: 30
+        },
+        erlopeh: {
+          logo: 'https://static-cdn.jtvnw.net/jtv_user_pictures/a326d760-df88-425c-a057-c9789b206752-profile_image-150x150.png',
+          name: 'Erlopeh',
+          time: 30
+        },
+        zirob: {
+          logo: 'https://static-cdn.jtvnw.net/jtv_user_pictures/1e0b39d0-9fbf-4911-8daf-b9700154dd7c-profile_image-150x150.png',
+          name: 'Zirob21',
+          time: 30
+        },
+        renzo: {
+          logo: 'https://static-cdn.jtvnw.net/jtv_user_pictures/b612aa8a-451f-49e9-9e8b-e307f1fcd723-profile_image-150x150.png',
+          name: 'RenzoXRock',
+          time: 30
+        },
+        gintsoka: {
+          logo: 'https://static-cdn.jtvnw.net/jtv_user_pictures/df29cf4e-c207-40d3-a1b7-bedeafa1e75f-profile_image-70x70.png',
+          name: 'gintsoka',
+          time: 30
+        },
+        sebax: {
+          logo: 'https://static-cdn.jtvnw.net/jtv_user_pictures/c7f7087d-ae9b-4995-92be-5c107f23dff2-profile_image-70x70.png',
+          name: 'SebaxReloaded',
+          time: 120
+        },
       },
     };
   },
