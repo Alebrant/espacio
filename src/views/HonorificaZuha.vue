@@ -88,7 +88,7 @@ export default {
   data() {
     return {
       prayges: [
-        {visible: false, src:'EmpaPrayge.png'},
+        // {visible: false, src:'EmpaPrayge.png'},
         {visible: false, src:'SebaxPrayge.png'},
         {visible: false, src:'jackprayge.png'},
         {visible: false, src:'JoshhPrayge.png'},
