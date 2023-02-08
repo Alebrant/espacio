@@ -39,8 +39,11 @@
   height: 100px;
   line-height: 100px;
 }
+.prayge-2{
+  margin-left: -20px;
+}
 .prayge-3{
-  margin-left: -30px;
+  margin-left: 25px;
 }
 .prayge-4{
   height: 120px;
@@ -48,13 +51,16 @@
 }
 .prayge-5{
   margin-left: 10px;
+  height:125px;
 }
 .prayge-6{
-  margin-left: 5px;
-  height: 125px;
+  margin-left: 15px;
+}
+.prayge-7{
+  margin-left: 25px;
 }
 .prayge-zuha{
-  left: 800px;
+  left: 725px;
   height: 540px;
   transition: bottom 2s ease-in-out;
 }
@@ -92,8 +98,8 @@ export default {
         {visible: false, src:'SebaxPrayge.png'},
         {visible: false, src:'jackprayge.png'},
         {visible: false, src:'JoshhPrayge.png'},
-        {visible: false, src:'JPrayge.png'},
         {visible: false, src:'HolyPrayge.png'},
+        {visible: false, src:'JPrayge.png'},
         {visible: false, src:'slash_dorime1.png'},
         {visible: false, src:'VlaDOSprayge.png'},
         {visible: false, src:'Zirob_Dorime.png'}
@@ -118,7 +124,7 @@ export default {
     },
     style: function(){
       const self = this;
-      return self.prayges.map((prayge,i) => i<5 ? `left: ${i*100+300}px;` : `left: ${i*100 + 675}px;`);
+      return self.prayges.map((prayge,i) => i<4 ? `left: ${i*100+300}px;` : `left: ${i*100 + 675}px;`);
     }
   },
   methods: {

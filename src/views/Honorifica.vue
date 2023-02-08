@@ -146,6 +146,11 @@ export default {
           name: 'SebaxReloaded',
           time: 120
         },
+        guillem: {
+          logo: 'https://static-cdn.jtvnw.net/jtv_user_pictures/3bf77974-f927-46cf-9c4d-3d5c24427ed4-profile_image-70x70.png',
+          name: 'Guillem98',
+          time: 120
+        },
       },
     };
   },
