@@ -25,6 +25,12 @@
   font-weight: bold;
   color: green;
 }
+.pb span {
+  padding: 5px 10px;
+  background: white;
+  border-radius: 24px;
+  border: 2px solid black;
+}
 .hornet span {
   display: inline-block;
   background: white;
